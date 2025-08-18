@@ -90,7 +90,8 @@ function showErr(msg){
   if (msg) { box.style.display='block'; box.innerHTML = escapeHtml(msg) + '<div style="margin-top:6px;font-size:12px;opacity:.8">Lines URL: '+escapeHtml(CSV_URL_LINES)+'<br>Subs URL: '+escapeHtml(CSV_URL_SUBS)+'</div>'; }
   else { box.style.display='none'; box.innerHTML=''; } }
 
-// Cache-busted CSV fetch with guard against HTML function fetchCSV(url){
+// Cache-busted CSV fetch with guard against HTML 
+function fetchCSV(url){
   const bust = (url.includes('?') ? '&' : '?') + 'cb=' + Date.now();
   return new Promise((resolve,reject)=>{
     Papa.parse(url + bust,{
