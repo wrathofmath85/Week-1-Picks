@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" /> <title>Spread Pool — Picks</title> <link rel="preconnect" href="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdn.jsdelivr.net%2F&data=05%7C02%7Cdan.fox%40brighthousefinancial.com%7C2c0a36f7a1c14f1fc7d208ddde9e320f%7C2658e698ac384347a56f3f96a6bfa8ff%7C0%7C0%7C638911493215346363%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=wY68r24J5XYk3TCmTJoJZZY7%2BL2bVXh4zH%2Bmo886Gdk%3D&reserved=0" /> <script src="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fpapaparse%405.4.1%2Fpapaparse.min.js&data=05%7C02%7Cdan.fox%40brighthousefinancial.com%7C2c0a36f7a1c14f1fc7d208ddde9e320f%7C2658e698ac384347a56f3f96a6bfa8ff%7C0%7C0%7C638911493215370505%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=88luJqhY9JC%2BID10r3GXPknYEDWe%2Bs8%2BZc8y1B0VQ30%3D&reserved=0"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1" /> <title>Spread Pool — Picks</title> <link rel="preconnect" href="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdn.jsdelivr.net%2F&data=05%7C02%7Cdan.fox%40brighthousefinancial.com%7Caeba313e2a224fd23a2308dddeaecace%7C2658e698ac384347a56f3f96a6bfa8ff%7C0%7C0%7C638911564499534918%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=D8xAtMarazjL%2BCnJL9%2FS2GHzu19nT2sexLudDIRYyqY%3D&reserved=0" /> <script src="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fpapaparse%405.4.1%2Fpapaparse.min.js&data=05%7C02%7Cdan.fox%40brighthousefinancial.com%7Caeba313e2a224fd23a2308dddeaecace%7C2658e698ac384347a56f3f96a6bfa8ff%7C0%7C0%7C638911564499562819%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=SA7NBaeTwdkQB7U1fWzfpseufCbx0DFSkD1opu0Bb%2FM%3D&reserved=0"></script>
 <style>
   :root{
     --bg:#ffffff; --text:#111; --muted:#666; --rule:#ddd; --accent:#0b61ff;
@@ -49,7 +49,7 @@
 
   <!-- GAME OUTCOME CONTROLS -->
   <div id="gamesPanel" class="games"></div>
-  <div class="note">Click a game’s Away/Home/Tie to record the result. Totals & leaderboards update instantly. (Double counts as ×2 by default.)</div>
+  <div class="note">Set the official result per game. If the <strong>Winner</strong> column is filled in the Lines sheet, the game is locked for everyone. Totals & leaderboards update instantly. (Double counts as ×2 by default.)</div>
 
   <!-- PEOPLE LIST -->
   <div id="list"></div>
@@ -64,14 +64,15 @@
 <script>
 /* ================== CONFIG ================== */
 /* Publish each Google Sheet tab as CSV (File → Share → Publish to web → CSV) and paste links below */
-const CSV_URL_LINES = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTUQWcddGBeI13Qox_fKf1g9dejkd-VyZqimSwHaXPH4nO4AGE9oJo9-FzNacU4X1-xNvFvm0HOFHre/pub?gid=1347498364&single=true&output=csv";       // columns: QID,Line,Away,Home
-const CSV_URL_SUBS  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRys9xayYsuEqgGB09v1nOrwdD0U5c1Hb1ksLqQxTSBzLi3AKGeg9yPt1-eY1fry_0H-KcZLCQ1h8H6/pub?gid=0&single=true&output=csv"; // columns: Timestamp,Week,Name,Email,QID,Choice,IsDouble
+const CSV_URL_LINES = "PASTE_LINES_CSV_URL_HERE";       // columns: QID,Line,Away,Home,Winner
+const CSV_URL_SUBS  = "PASTE_SUBMISSIONS_CSV_URL_HERE"; // columns: Timestamp,Week,Name,Email,QID,Choice,IsDouble
 const DOUBLE_COUNTS_AS = 2; // set to 1 if Double should not count extra
 
 /* ================ HELPERS =================== */ const by = f => (a,b)=> f(a)<f(b)?-1:f(a)>f(b)?1:0; function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
-function qidOrder(q){ if(!q) return 9999; const s=q[0], n=parseInt(q.slice(1),10); return (s==='A'?0:1)*1000 + (isFinite(n)?n:999); } function fetchCSV(url){
+function qidOrder(q){ if(!q) return 9999; const s=q[0], n=parseInt(q.slice(1),10); return (s==='A'?0:1)*1000 + (isFinite(n)?n:999); } // cache-busted fetch so sheet edits show quickly function fetchCSV(url){
+  const bust = (url.includes('?') ? '&' : '?') + 'cb=' + Date.now();
   return new Promise((resolve,reject)=>{
-    Papa.parse(url,{download:true,header:true,dynamicTyping:false,skipEmptyLines:true,
+    Papa.parse(url + bust,{download:true,header:true,dynamicTyping:false,skipEmptyLines:true,
       complete:res=>resolve(res.data),error:err=>reject(err)});
   });
 }
@@ -89,19 +90,23 @@ function fmtPct(n){ return (isNaN(n) ? "" : (n*100).toFixed(1) + "%"); }
 let qidToLine = new Map();      // QID -> Line text
 let qidToAway = new Map();      // QID -> Away team (raw)
 let qidToHome = new Map();      // QID -> Home team (raw)
+let qidToWinner = new Map();    // QID -> Winner raw string ("Tie" or team) or ""
 let results = new Map();        // QID -> 'away' | 'home' | 'tie'
 let people = [];                // [{name, picks:[{qid, choice, isDouble}]}]
 
 /* ============== LOAD & PREP ============== */ function normalizeLines(rows){
   rows.forEach(r=>{
-    const qid = String(r["QID"]||r["qid"]||"").trim();
-    const line= String(r["Line"]||r["line"]||"").trim();
-    const away= String(r["Away"]||r["away"]||"").trim();
-    const home= String(r["Home"]||r["home"]||"").trim();
+    const qid   = String(r["QID"]||r["qid"]||"").trim();
+    const line  = String(r["Line"]||r["line"]||"").trim();
+    const away  = String(r["Away"]||r["away"]||"").trim();
+    const home  = String(r["Home"]||r["home"]||"").trim();
+    const win   = String(r["Winner"]||r["winner"]||"").trim(); // NEW
+
     if(qid){
       qidToLine.set(qid, line || qid);
       qidToAway.set(qid, away);
       qidToHome.set(qid, home);
+      qidToWinner.set(qid, win);
     }
   });
 }
@@ -140,9 +145,27 @@ function normalizeSubs(rows){
   return arr;
 }
 
+function outcomeFromWinner(qid){
+  const w = (qidToWinner.get(qid) || "").trim();
+  if(!w) return undefined;
+  if (/^tie$/i.test(w)) return 'tie';
+  const wNorm = normTeam(w);
+  if (wNorm && wNorm === normTeam(qidToAway.get(qid)||"")) return 'away';
+  if (wNorm && wNorm === normTeam(qidToHome.get(qid)||"")) return 'home';
+  return undefined; // unrecognized text }
+
 async function loadAll(){
   const [lines, subs] = await Promise.all([ fetchCSV(CSV_URL_LINES), fetchCSV(CSV_URL_SUBS) ]);
+  // reset state
+  qidToLine.clear(); qidToAway.clear(); qidToHome.clear(); qidToWinner.clear(); results.clear();
   normalizeLines(lines);
+
+  // Prefill locked results from Winner column (global lock)
+  Array.from(qidToLine.keys()).forEach(qid=>{
+    const oc = outcomeFromWinner(qid);
+    if(oc) results.set(qid, oc);
+  });
+
   people = normalizeSubs(subs);
   renderGames();
   renderPeople();
@@ -157,7 +180,7 @@ async function loadAll(){
     p.picks.forEach(pk=>{
       if(pk.qid !== qid) return;
       const c = normTeam(pk.choice);
-      const wt = pk.isDouble ? DOUBLE_COUNTS_AS : 1;  // weight doubles in counts
+      const wt = pk.isDouble ? DOUBLE_COUNTS_AS : 1;  // weight doubles in counts (optional)
       if(c && c === awayNorm) away += wt;
       else if(c && c === homeNorm) home += wt;
     });
@@ -189,30 +212,42 @@ async function loadAll(){
     const away = qidToAway.get(qid) || 'Away';
     const home = qidToHome.get(qid) || 'Home';
     const counts = getPickCounts(qid);
+    const lockedOutcome = outcomeFromWinner(qid); // undefined | 'away' | 'home' | 'tie'
 
-    div.innerHTML = `
-      <div class="gline">${escapeHtml(qid)} — ${escapeHtml(qidToLine.get(qid) || qid)}</div>
-      <button class="gbtn away ${results.get(qid)==='away'?'active':''}" data-qid="${qid}" data-val="away">
-        ${escapeHtml(away)} (${counts.away})
-      </button>
-      <button class="gbtn home ${results.get(qid)==='home'?'active':''}" data-qid="${qid}" data-val="home">
-        ${escapeHtml(home)} (${counts.home})
-      </button>
-      <button class="gbtn tie  ${results.get(qid)==='tie'?'active':''}"  data-qid="${qid}" data-val="tie">Tie</button>
-    `;
+    if(lockedOutcome){
+      const winnerText = lockedOutcome==='tie' ? 'Tie' : (lockedOutcome==='away' ? away : home);
+      div.innerHTML = `
+        <div class="gline">${escapeHtml(qid)} — ${escapeHtml(qidToLine.get(qid) || qid)}</div>
+        <div style="grid-column: 2 / span 3; font-weight:700;">
+          Result: ${escapeHtml(winnerText)} (locked)
+        </div>
+      `;
+    } else {
+      div.innerHTML = `
+        <div class="gline">${escapeHtml(qid)} — ${escapeHtml(qidToLine.get(qid) || qid)}</div>
+        <button class="gbtn away ${results.get(qid)==='away'?'active':''}" data-qid="${qid}" data-val="away">
+          ${escapeHtml(away)} (${counts.away})
+        </button>
+        <button class="gbtn home ${results.get(qid)==='home'?'active':''}" data-qid="${qid}" data-val="home">
+          ${escapeHtml(home)} (${counts.home})
+        </button>
+        <button class="gbtn tie  ${results.get(qid)==='tie'?'active':''}"  data-qid="${qid}" data-val="tie">Tie</button>
+      `;
+    }
     panel.appendChild(div);
   });
 
+  // local scenario clicks (ignored if Winner is set in CSV)
   panel.onclick = (e)=>{
     const btn = e.target.closest('.gbtn');
     if(!btn) return;
     const qid = btn.dataset.qid;
-    const val = btn.dataset.val;
+    if(outcomeFromWinner(qid)) return; // locked globally
 
+    const val = btn.dataset.val;
     const current = results.get(qid);
     if(current === val){ results.delete(qid); } else { results.set(qid, val); }
 
-    // update active styles for that row only
     const row = btn.closest('.game');
     row.querySelectorAll('.gbtn').forEach(b=> b.classList.remove('active'));
     if(results.has(qid)) row.querySelector(`.gbtn.${results.get(qid)}`)?.classList.add('active');
@@ -225,12 +260,9 @@ async function loadAll(){
   const outcome = results.get(qid); // undefined | 'away' | 'home' | 'tie'
   if(!outcome) return { w:0, l:0, t:0 };
 
-  const away = qidToAway.get(qid) || '';
-  const home = qidToHome.get(qid) || '';
-
+  const awayNorm = normTeam(qidToAway.get(qid) || '');
+  const homeNorm = normTeam(qidToHome.get(qid) || '');
   const cNorm = normTeam(choice);
-  const awayNorm = normTeam(away);
-  const homeNorm = normTeam(home);
 
   let w=0,l=0,t=0;
   const weight = isDouble ? DOUBLE_COUNTS_AS : 1;
@@ -250,7 +282,6 @@ async function loadAll(){
   const lbWrap = document.getElementById('leaderboards');
   list.innerHTML = '';
 
-  // collect summaries for leaderboard
   const summaries = [];
 
   people.forEach(p=>{
@@ -321,7 +352,6 @@ function renderLeaderboards(summaries){
   const lbPct  = document.getElementById('lbPct');
   const lbWins = document.getElementById('lbWins');
 
-  // show wrapper if there is at least one person with a denominator
   const valid = summaries.filter(s => (s.w + s.l + s.t) > 0);
   lbWrap.hidden = valid.length === 0;
   if(lbWrap.hidden) return;
@@ -373,8 +403,9 @@ function renderLeaderboards(summaries){
 
 /* ============== GO ============== */
 loadAll();
+// Optional: auto-refresh every 60s
+// setInterval(loadAll, 60000);
 </script>
 </body>
 </html>
-
 
