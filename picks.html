@@ -69,7 +69,8 @@ const CSV_URL_SUBS  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRys9xayY
 const DOUBLE_COUNTS_AS = 2; // set to 1 if Double should not count extra
 
 /* ================ HELPERS =================== */ const by = f => (a,b)=> f(a)<f(b)?-1:f(a)>f(b)?1:0; function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
-function qidOrder(q){ if(!q) return 9999; const s=q[0], n=parseInt(q.slice(1),10); return (s==='A'?0:1)*1000 + (isFinite(n)?n:999); } // cache-busted fetch so sheet edits show quickly function fetchCSV(url){
+function qidOrder(q){ if(!q) return 9999; const s=q[0], n=parseInt(q.slice(1),10); return (s==='A'?0:1)*1000 + (isFinite(n)?n:999); } // cache-busted fetch so sheet edits show quickly 
+function fetchCSV(url){
   const bust = (url.includes('?') ? '&' : '?') + 'cb=' + Date.now();
   return new Promise((resolve,reject)=>{
     Papa.parse(url + bust,{download:true,header:true,dynamicTyping:false,skipEmptyLines:true,
