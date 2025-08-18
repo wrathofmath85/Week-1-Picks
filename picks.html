@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" /> <title>Spread Pool — Picks</title> <link rel="preconnect" href="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdn.jsdelivr.net%2F&data=05%7C02%7Cdan.fox%40brighthousefinancial.com%7C51667806ab9b4fb5d30908ddde9cc7ec%7C2658e698ac384347a56f3f96a6bfa8ff%7C0%7C0%7C638911487158208999%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=P9oEeW9wVwq3QeLqq2fJc1xrnvdvp5heZFZPBnvswqU%3D&reserved=0" /> <script src="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fpapaparse%405.4.1%2Fpapaparse.min.js&data=05%7C02%7Cdan.fox%40brighthousefinancial.com%7C51667806ab9b4fb5d30908ddde9cc7ec%7C2658e698ac384347a56f3f96a6bfa8ff%7C0%7C0%7C638911487158232569%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=8gdTfcFWODFG7pzGPyklTjZAuLxZlxhnFVvrv8KpSs8%3D&reserved=0"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1" /> <title>Spread Pool — Picks</title> <link rel="preconnect" href="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdn.jsdelivr.net%2F&data=05%7C02%7Cdan.fox%40brighthousefinancial.com%7C2c0a36f7a1c14f1fc7d208ddde9e320f%7C2658e698ac384347a56f3f96a6bfa8ff%7C0%7C0%7C638911493215346363%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=wY68r24J5XYk3TCmTJoJZZY7%2BL2bVXh4zH%2Bmo886Gdk%3D&reserved=0" /> <script src="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fpapaparse%405.4.1%2Fpapaparse.min.js&data=05%7C02%7Cdan.fox%40brighthousefinancial.com%7C2c0a36f7a1c14f1fc7d208ddde9e320f%7C2658e698ac384347a56f3f96a6bfa8ff%7C0%7C0%7C638911493215370505%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=88luJqhY9JC%2BID10r3GXPknYEDWe%2Bs8%2BZc8y1B0VQ30%3D&reserved=0"></script>
 <style>
   :root{
     --bg:#ffffff; --text:#111; --muted:#666; --rule:#ddd; --accent:#0b61ff;
@@ -11,6 +11,8 @@
   html,body{background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;margin:0}
   .wrap{max-width:1150px;margin:28px auto;padding:0 16px 64px}
   h1{margin:0 0 12px}
+
+  /* Games panel */
   .games{border:1px solid var(--rule);border-radius:10px;padding:12px;margin:8px 0 20px}
   .game{display:grid;grid-template-columns: 1fr auto auto auto;gap:8px;align-items:center;border-bottom:1px solid var(--rule);padding:8px 0}
   .game:last-child{border-bottom:0}
@@ -22,6 +24,7 @@
   .gbtn.tie.active{background:#f3f4f6}
   .note{color:var(--muted);font-size:12px;margin-top:6px}
 
+  /* People tables */
   .person{margin:22px 0 30px}
   .pname{font-weight:800;font-size:20px;margin:0 0 8px}
   table{width:100%;border-collapse:collapse}
@@ -29,32 +32,41 @@
   th{text-align:left;border-bottom:2px solid #000}
   td{border-bottom:1px solid var(--rule)}
   .col-idx{width:34px;text-align:right;color:var(--muted)}
-  .col-line{width:60%}
+  .col-line{width:55%}
   .result-win{color:var(--green);font-weight:700}
   .result-loss{color:var(--red);font-weight:700}
   .result-tie{color:var(--gray);font-weight:700}
   .double::after{content:" ×2";color:var(--chip);font-weight:700}
   tfoot td{font-weight:700}
-</style>
-</head>
-<body>
-<div class="wrap">
+
+  /* Leaderboard */
+  .leaderboards{margin-top:28px;border-top:2px solid #000;padding-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .lb h2{margin:0 0 8px;font-size:18px}
+  .lb table{width:100%}
+  .lb td{border-bottom:1px dashed var(--rule);padding:6px 4px}
+  .mono{font-variant-numeric: tabular-nums} </style> </head> <body> <div class="wrap">
   <h1>Spread Pool — Picks</h1>
 
   <!-- GAME OUTCOME CONTROLS -->
   <div id="gamesPanel" class="games"></div>
-  <div class="note">Tip: click a game’s Away/Home/Tie to record the result. Totals update instantly. (Double counts as ×2 by default.)</div>
+  <div class="note">Click a game’s Away/Home/Tie to record the result. Totals & leaderboards update instantly. (Double counts as ×2 by default.)</div>
 
   <!-- PEOPLE LIST -->
   <div id="list"></div>
+
+  <!-- LEADERBOARDS -->
+  <div class="leaderboards" id="leaderboards" hidden>
+    <div class="lb" id="lbPct"></div>
+    <div class="lb" id="lbWins"></div>
+  </div>
 </div>
 
 <script>
 /* ================== CONFIG ================== */
-/* Publish each Google Sheet tab as CSV (File → Share → Publish to web → CSV) */
-const CSV_URL_LINES = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTUQWcddGBeI13Qox_fKf1g9dejkd-VyZqimSwHaXPH4nO4AGE9oJo9-FzNacU4X1-xNvFvm0HOFHre/pub?gid=1347498364&single=true&output=csv";       // expects: QID,Line,Away,Home
-const CSV_URL_SUBS  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRys9xayYsuEqgGB09v1nOrwdD0U5c1Hb1ksLqQxTSBzLi3AKGeg9yPt1-eY1fry_0H-KcZLCQ1h8H6/pub?gid=0&single=true&output=csv"; // expects: Timestamp,Week,Name,Email,QID,Choice,IsDouble
-const DOUBLE_COUNTS_AS = 2; // set to 1 if a Double should count the same as a normal pick
+/* Publish each Google Sheet tab as CSV (File → Share → Publish to web → CSV) and paste links below */
+const CSV_URL_LINES = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTUQWcddGBeI13Qox_fKf1g9dejkd-VyZqimSwHaXPH4nO4AGE9oJo9-FzNacU4X1-xNvFvm0HOFHre/pub?gid=1347498364&single=true&output=csv";       // columns: QID,Line,Away,Home
+const CSV_URL_SUBS  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRys9xayYsuEqgGB09v1nOrwdD0U5c1Hb1ksLqQxTSBzLi3AKGeg9yPt1-eY1fry_0H-KcZLCQ1h8H6/pub?gid=0&single=true&output=csv"; // columns: Timestamp,Week,Name,Email,QID,Choice,IsDouble
+const DOUBLE_COUNTS_AS = 2; // set to 1 if Double should not count extra
 
 /* ================ HELPERS =================== */ const by = f => (a,b)=> f(a)<f(b)?-1:f(a)>f(b)?1:0; function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 function qidOrder(q){ if(!q) return 9999; const s=q[0], n=parseInt(q.slice(1),10); return (s==='A'?0:1)*1000 + (isFinite(n)?n:999); } function fetchCSV(url){
@@ -63,16 +75,15 @@ function qidOrder(q){ if(!q) return 9999; const s=q[0], n=parseInt(q.slice(1),10
       complete:res=>resolve(res.data),error:err=>reject(err)});
   });
 }
-// Normalize team strings for loose matching: trims, drops spreads "(...)", and leading rankings "#3 "
+// Normalize team strings for loose matching: trims, drops spreads "(…)", and leading rankings "#3 "
 function normTeam(s){
   s = String(s||"").trim();
   if(!s) return "";
-  // remove content in parentheses at the end (spreads)
-  s = s.replace(/\s*\([^)]*\)\s*$/,"").trim();
-  // drop leading rank like "#3 " or "#22 "
-  s = s.replace(/^#\d+\s+/,"").trim();
+  s = s.replace(/\s*\([^)]*\)\s*$/,"").trim(); // drop trailing spread
+  s = s.replace(/^#\d+\s+/,"").trim();         // drop rank
   return s.toLowerCase();
 }
+function fmtPct(n){ return (isNaN(n) ? "" : (n*100).toFixed(1) + "%"); }
 
 /* ============== STATE ============== */
 let qidToLine = new Map();      // QID -> Line text
@@ -96,7 +107,7 @@ let people = [];                // [{name, picks:[{qid, choice, isDouble}]}]
 }
 
 function normalizeSubs(rows){
-  // Group by (Name) and keep latest timestamp set if multiple submissions
+  // Group by Name and keep only the latest Timestamp submission per person
   const latest = new Map(); // name => latest ts
   rows.forEach(r=>{
     const name = String(r["Name"]||r["name"]||"").trim();
@@ -115,14 +126,14 @@ function normalizeSubs(rows){
     const isDouble = String(r["IsDouble"]).toUpperCase()==="TRUE";
 
     if(!name || !qid) return;
-    if(latest.get(name) && ts !== latest.get(name)) return; // keep only lines for their latest submission
+    if(latest.get(name) && ts !== latest.get(name)) return; // only latest set
 
     const p = byName.get(name) || { name, picks: [] };
     p.picks.push({ qid, choice, isDouble });
     byName.set(name, p);
   });
 
-  // sort picks by QID order
+  // sort picks & people
   const arr = Array.from(byName.values());
   arr.forEach(p => p.picks.sort((a,b)=> qidOrder(a.qid)-qidOrder(b.qid)));
   arr.sort(by(p => p.name.toLowerCase()));
@@ -137,40 +148,77 @@ async function loadAll(){
   renderPeople();
 }
 
+/* ========= COUNT PICKS PER GAME (for top panel & filter) ========= */ function getPickCounts(qid){
+  const awayNorm = normTeam(qidToAway.get(qid) || "");
+  const homeNorm = normTeam(qidToHome.get(qid) || "");
+  let away = 0, home = 0;
+
+  people.forEach(p=>{
+    p.picks.forEach(pk=>{
+      if(pk.qid !== qid) return;
+      const c = normTeam(pk.choice);
+      const wt = pk.isDouble ? DOUBLE_COUNTS_AS : 1;  // weight doubles in counts
+      if(c && c === awayNorm) away += wt;
+      else if(c && c === homeNorm) home += wt;
+    });
+  });
+
+  return { away, home };
+}
+
 /* ============== RENDER: GAMES (controls) ============== */ function renderGames(){
   const panel = document.getElementById('gamesPanel');
   panel.innerHTML = '';
-  const qids = Array.from(qidToLine.keys()).sort((a,b)=> qidOrder(a)-qidOrder(b));
+
+  // QIDs ordered, then keep only games that have at least one pick
+  const qidsAll = Array.from(qidToLine.keys()).sort((a,b)=> qidOrder(a)-qidOrder(b));
+  const qids = qidsAll.filter(q=>{
+    const c = getPickCounts(q);
+    return (c.away + c.home) > 0;
+  });
+
+  if(qids.length === 0){
+    panel.innerHTML = `<div class="note">No picks yet.</div>`;
+    return;
+  }
 
   qids.forEach(qid=>{
     const div = document.createElement('div');
     div.className = 'game';
-    const away = qidToAway.get(qid) || '';
-    const home = qidToHome.get(qid) || '';
+
+    const away = qidToAway.get(qid) || 'Away';
+    const home = qidToHome.get(qid) || 'Home';
+    const counts = getPickCounts(qid);
+
     div.innerHTML = `
-      <div class="gline">${escapeHtml(qid)} — ${escapeHtml(qidToLine.get(qid)||qid)}</div>
-      <button class="gbtn away" data-qid="${qid}" data-val="away">${escapeHtml(away||'Away')}</button>
-      <button class="gbtn home" data-qid="${qid}" data-val="home">${escapeHtml(home||'Home')}</button>
-      <button class="gbtn tie"  data-qid="${qid}" data-val="tie">Tie</button>
+      <div class="gline">${escapeHtml(qid)} — ${escapeHtml(qidToLine.get(qid) || qid)}</div>
+      <button class="gbtn away ${results.get(qid)==='away'?'active':''}" data-qid="${qid}" data-val="away">
+        ${escapeHtml(away)} (${counts.away})
+      </button>
+      <button class="gbtn home ${results.get(qid)==='home'?'active':''}" data-qid="${qid}" data-val="home">
+        ${escapeHtml(home)} (${counts.home})
+      </button>
+      <button class="gbtn tie  ${results.get(qid)==='tie'?'active':''}"  data-qid="${qid}" data-val="tie">Tie</button>
     `;
     panel.appendChild(div);
   });
 
-  panel.addEventListener('click', e=>{
+  panel.onclick = (e)=>{
     const btn = e.target.closest('.gbtn');
     if(!btn) return;
     const qid = btn.dataset.qid;
-    const val = btn.dataset.val;          // 'away' | 'home' | 'tie'
-    // toggle result (clicking active clears)
+    const val = btn.dataset.val;
+
     const current = results.get(qid);
-    if(current === val){ results.delete(qid); }
-    else { results.set(qid, val); }
-    // update active styles for that row
+    if(current === val){ results.delete(qid); } else { results.set(qid, val); }
+
+    // update active styles for that row only
     const row = btn.closest('.game');
     row.querySelectorAll('.gbtn').forEach(b=> b.classList.remove('active'));
     if(results.has(qid)) row.querySelector(`.gbtn.${results.get(qid)}`)?.classList.add('active');
-    renderPeople(); // re-score
-  });
+
+    renderPeople(); // re-score tables & leaderboards
+  };
 }
 
 /* ============== SCORING ============== */ function scorePick(qid, choice, isDouble){
@@ -197,9 +245,13 @@ async function loadAll(){
   return { w,l,t };
 }
 
-/* ============== RENDER: PEOPLE TABLES ============== */ function renderPeople(){
+/* ============== RENDER: PEOPLE TABLES + LEADERBOARDS ============== */ function renderPeople(){
   const list = document.getElementById('list');
+  const lbWrap = document.getElementById('leaderboards');
   list.innerHTML = '';
+
+  // collect summaries for leaderboard
+  const summaries = [];
 
   people.forEach(p=>{
     let rowsHtml = '';
@@ -224,6 +276,11 @@ async function loadAll(){
       `;
     });
 
+    const denom = tw + tl + tt;
+    const pct = denom > 0 ? (tw + 0.5*tt) / denom : NaN;
+
+    summaries.push({ name:p.name, w:tw, l:tl, t:tt, pct });
+
     const table = `
       <table>
         <thead>
@@ -241,10 +298,10 @@ async function loadAll(){
           <tr>
             <td></td>
             <td>Total</td>
-            <td></td>
-            <td>${tw}</td>
-            <td>${tl}</td>
-            <td>${tt}</td>
+            <td class="mono">${fmtPct(pct)}</td>
+            <td class="mono">${tw}</td>
+            <td class="mono">${tl}</td>
+            <td class="mono">${tt}</td>
           </tr>
         </tfoot>
       </table>
@@ -255,6 +312,63 @@ async function loadAll(){
     card.innerHTML = `<div class="pname">${escapeHtml(p.name)}</div>` + table;
     list.appendChild(card);
   });
+
+  renderLeaderboards(summaries);
+}
+
+function renderLeaderboards(summaries){
+  const lbWrap = document.getElementById('leaderboards');
+  const lbPct  = document.getElementById('lbPct');
+  const lbWins = document.getElementById('lbWins');
+
+  // show wrapper if there is at least one person with a denominator
+  const valid = summaries.filter(s => (s.w + s.l + s.t) > 0);
+  lbWrap.hidden = valid.length === 0;
+  if(lbWrap.hidden) return;
+
+  // Top 5 by Win %
+  const byPct = [...valid].sort((a,b)=>{
+    if(isNaN(b.pct) && isNaN(a.pct)) return a.name.localeCompare(b.name);
+    if(isNaN(b.pct)) return -1;
+    if(isNaN(a.pct)) return 1;
+    if(b.pct !== a.pct) return b.pct - a.pct;
+    if(b.w !== a.w) return b.w - a.w;
+    return a.name.localeCompare(b.name);
+  }).slice(0,5);
+
+  // Top 5 by Wins
+  const byWins = [...valid].sort((a,b)=>{
+    if(b.w !== a.w) return b.w - a.w;
+    const ap = isNaN(a.pct)? -1 : a.pct, bp = isNaN(b.pct)? -1 : b.pct;
+    if(bp !== ap) return bp - ap;
+    return a.name.localeCompare(b.name);
+  }).slice(0,5);
+
+  lbPct.innerHTML = `
+    <h2>Top 5 — Win %</h2>
+    <table>
+      ${byPct.map((s,i)=>`
+        <tr>
+          <td style="width:24px;text-align:right;color:#888">${i+1}.</td>
+          <td>${escapeHtml(s.name)}</td>
+          <td class="mono" style="width:80px;text-align:right">${fmtPct(s.pct)}</td>
+          <td class="mono" style="width:120px;text-align:right">${s.w}-${s.l}-${s.t}</td>
+        </tr>`).join("")}
+    </table>
+  `;
+
+  lbWins.innerHTML = `
+    <h2>Top 5 — Wins</h2>
+    <table>
+      ${byWins.map((s,i)=>`
+        <tr>
+          <td style="width:24px;text-align:right;color:#888">${i+1}.</td>
+          <td>${escapeHtml(s.name)}</td>
+          <td class="mono" style="width:60px;text-align:right">${s.w}</td>
+          <td class="mono" style="width:120px;text-align:right">${fmtPct(s.pct)}</td>
+        </tr>`).join("")}
+    </table>
+  `;
 }
 
 /* ============== GO ============== */
@@ -262,4 +376,5 @@ loadAll();
 </script>
 </body>
 </html>
+
 
