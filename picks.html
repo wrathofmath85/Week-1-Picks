@@ -2,15 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" /> <title>Spread Pool — Picks</title> <link rel="preconnect" href="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdn.jsdelivr.net%2F&data=05%7C02%7Cdan.fox%40brighthousefinancial.com%7Caeba313e2a224fd23a2308dddeaecace%7C2658e698ac384347a56f3f96a6bfa8ff%7C0%7C0%7C638911564499534918%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=D8xAtMarazjL%2BCnJL9%2FS2GHzu19nT2sexLudDIRYyqY%3D&reserved=0" /> <script src="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fpapaparse%405.4.1%2Fpapaparse.min.js&data=05%7C02%7Cdan.fox%40brighthousefinancial.com%7Caeba313e2a224fd23a2308dddeaecace%7C2658e698ac384347a56f3f96a6bfa8ff%7C0%7C0%7C638911564499562819%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=SA7NBaeTwdkQB7U1fWzfpseufCbx0DFSkD1opu0Bb%2FM%3D&reserved=0"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1" /> <title>Spread Pool — Picks</title> <link rel="preconnect" href="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdn.jsdelivr.net%2F&data=05%7C02%7Cdan.fox%40brighthousefinancial.com%7C08652f62b60348b1f63f08dddeb233e9%7C2658e698ac384347a56f3f96a6bfa8ff%7C0%7C0%7C638911579142808950%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=AD%2BQwqPZiT2WLTypH8MfJijM0lQ5e9iF0Q5rAhHLXLU%3D&reserved=0" /> <script src="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fpapaparse%405.4.1%2Fpapaparse.min.js&data=05%7C02%7Cdan.fox%40brighthousefinancial.com%7C08652f62b60348b1f63f08dddeb233e9%7C2658e698ac384347a56f3f96a6bfa8ff%7C0%7C0%7C638911579142837591%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=J71NoXBxTvJWwGbajojO5BlizHvQQ2H5Ds6tpkKo4gg%3D&reserved=0"></script>
 <style>
   :root{
     --bg:#ffffff; --text:#111; --muted:#666; --rule:#ddd; --accent:#0b61ff;
-    --green:#16a34a; --red:#dc2626; --gray:#6b7280; --chip:#0b5;
+    --green:#16a34a; --red:#dc2626; --gray:#6b7280; --chip:#0b5; --count:#b45309;
   }
   html,body{background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;margin:0}
-  .wrap{max-width:1150px;margin:28px auto;padding:0 16px 64px}
+  .wrap{max-width:1200px;margin:28px auto;padding:0 16px 64px}
   h1{margin:0 0 12px}
+
+  #err{display:none;color:#b91c1c;background:#fee2e2;border:1px solid #fecaca;padding:8px 12px;border-radius:8px;margin:8px 0}
 
   /* Games panel */
   .games{border:1px solid var(--rule);border-radius:10px;padding:12px;margin:8px 0 20px}
@@ -18,15 +20,20 @@
   .game:last-child{border-bottom:0}
   .gline{font-weight:700}
   .gbtn{border:1px solid var(--rule);background:#f7f7f7;border-radius:8px;padding:6px 10px;cursor:pointer;font-weight:600}
+  .gbtn .count{font-weight:700;color:var(--count);margin-left:4px}
   .gbtn.active{border-color:var(--accent);box-shadow:0 0 0 2px rgba(11,97,255,.15)}
   .gbtn.away.active{background:#eef3ff}
   .gbtn.home.active{background:#eefaf0}
   .gbtn.tie.active{background:#f3f4f6}
   .note{color:var(--muted);font-size:12px;margin-top:6px}
 
-  /* People tables */
-  .person{margin:22px 0 30px}
-  .pname{font-weight:800;font-size:20px;margin:0 0 8px}
+  /* People grid */
+  #list{display:grid;grid-template-columns:repeat(2, minmax(0,1fr));gap:16px}
+  @media (max-width: 900px){ #list{grid-template-columns:1fr} }
+
+  /* People cards & tables */
+  .person{border:1px solid var(--rule);border-radius:10px;padding:12px}
+  .pname{font-weight:800;font-size:18px;margin:0 0 8px}
   table{width:100%;border-collapse:collapse}
   th,td{padding:7px 8px;vertical-align:top}
   th{text-align:left;border-bottom:2px solid #000}
@@ -38,167 +45,181 @@
   .result-tie{color:var(--gray);font-weight:700}
   .double::after{content:" ×2";color:var(--chip);font-weight:700}
   tfoot td{font-weight:700}
+  .mono{font-variant-numeric: tabular-nums}
 
-  /* Leaderboard */
-  .leaderboards{margin-top:28px;border-top:2px solid #000;padding-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
-  .lb h2{margin:0 0 8px;font-size:18px}
-  .lb table{width:100%}
-  .lb td{border-bottom:1px dashed var(--rule);padding:6px 4px}
-  .mono{font-variant-numeric: tabular-nums} </style> </head> <body> <div class="wrap">
+  /* Standings */
+  .standings{margin-top:28px}
+  .standings h2{margin:8px 0 10px}
+  .standings table{width:100%}
+  .standings td,.standings th{padding:8px;border-bottom:1px solid var(--rule)}
+  .standings th{text-align:left;border-bottom:2px solid #000}
+  .rank{width:42px;text-align:right;color:#888}
+  .stat{width:100px;text-align:right}
+</style>
+</head>
+<body>
+<div class="wrap">
   <h1>Spread Pool — Picks</h1>
+
+  <!-- error box -->
+  <div id="err"></div>
 
   <!-- GAME OUTCOME CONTROLS -->
   <div id="gamesPanel" class="games"></div>
-  <div class="note">Set the official result per game. If the <strong>Winner</strong> column is filled in the Lines sheet, the game is locked for everyone. Totals & leaderboards update instantly. (Double counts as ×2 by default.)</div>
+  <div class="note">Set the official result per game. If the <strong>Winner</strong> column is filled in the Lines sheet, the game is locked for everyone. Totals & standings update instantly. (Double counts as ×2 by default.)</div>
 
-  <!-- PEOPLE LIST -->
+  <!-- PEOPLE (2-column) -->
   <div id="list"></div>
 
-  <!-- LEADERBOARDS -->
-  <div class="leaderboards" id="leaderboards" hidden>
-    <div class="lb" id="lbPct"></div>
-    <div class="lb" id="lbWins"></div>
-  </div>
-</div>
+  <!-- FULL STANDINGS -->
+  <div class="standings" id="standings" hidden></div> </div>
 
 <script>
 /* ================== CONFIG ================== */
-/* Publish each Google Sheet tab as CSV (File → Share → Publish to web → CSV) and paste links below */
-const CSV_URL_LINES = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTUQWcddGBeI13Qox_fKf1g9dejkd-VyZqimSwHaXPH4nO4AGE9oJo9-FzNacU4X1-xNvFvm0HOFHre/pub?gid=1347498364&single=true&output=csv";       // columns: QID,Line,Away,Home,Winner
-const CSV_URL_SUBS  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRys9xayYsuEqgGB09v1nOrwdD0U5c1Hb1ksLqQxTSBzLi3AKGeg9yPt1-eY1fry_0H-KcZLCQ1h8H6/pub?gid=0&single=true&output=csv"; // columns: Timestamp,Week,Name,Email,QID,Choice,IsDouble
+/* Publish each tab as CSV (File → Share → Publish to web → select tab → CSV) and paste URLs here */
+const CSV_URL_LINES = "PASTE_LINES_CSV_URL_HERE";       // columns: QID,Line,Away,Home,Winner
+const CSV_URL_SUBS  = "PASTE_SUBMISSIONS_CSV_URL_HERE"; // columns: Timestamp,Week,Name,Email,QID,Choice,IsDouble
 const DOUBLE_COUNTS_AS = 2; // set to 1 if Double should not count extra
 
-/* ================ HELPERS =================== */
-const by = f => (a,b)=> f(a)<f(b)?-1:f(a)>f(b)?1:0;
-function escapeHtml(s){
- return String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+/* ================ HELPERS =================== */ const by = f => (a,b)=> f(a)<f(b)?-1:f(a)>f(b)?1:0; function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function qidOrder(q){ if(!q) return 9999; const s=q[0], n=parseInt(q.slice(1),10); return (s==='A'?0:1)*1000 + (isFinite(n)?n:999); }
+
+function showErr(msg){
+  const box = document.getElementById('err');
+  if (!box) return;
+  if (msg) { box.style.display='block'; box.innerHTML = escapeHtml(msg) + '<div style="margin-top:6px;font-size:12px;opacity:.8">Lines URL: '+escapeHtml(CSV_URL_LINES)+'<br>Subs URL: '+escapeHtml(CSV_URL_SUBS)+'</div>'; }
+  else { box.style.display='none'; box.innerHTML=''; } }
+
+// Cache-busted CSV fetch with guard against HTML function fetchCSV(url){
+  const bust = (url.includes('?') ? '&' : '?') + 'cb=' + Date.now();
+  return new Promise((resolve,reject)=>{
+    Papa.parse(url + bust,{
+      download:true, header:true, dynamicTyping:false, skipEmptyLines:true,
+      complete:res=>{
+        const row0 = res && res.data && res.data[0] ? res.data[0] : null;
+        const firstCell = row0 ? String(Object.values(row0)[0] ?? '') : '';
+        if (/^<\s*!?doctype|^<\s*html/i.test(firstCell)) {
+          reject(new Error('Got HTML instead of CSV. Use a "Publish to web → CSV" link.'));
+          return;
+        }
+        resolve(res.data);
+      },
+      error:err=>reject(err)
+    });
+  });
 }
-function qidOrder(q){
- if(!q) return 9999;
- const s = q[0], n = parseInt(q.slice(1),10);
- return (s==='A'?0:1)*1000 + (isFinite(n)?n:999);
-}
-// Cache-busted CSV fetch with a guard against accidentally fetching HTML
-function fetchCSV(url){
- const bust = (url.includes('?') ? '&' : '?') + 'cb=' + Date.now();
- return new Promise((resolve, reject)=>{
-   Papa.parse(url + bust, {
-     download: true,
-     header: true,
-     dynamicTyping: false,
-     skipEmptyLines: true,
-     complete: (res)=>{
-       // If we somehow got an HTML page, stop early
-       const firstRow = res && res.data && res.data[0] ? res.data[0] : null;
-       const firstCell = firstRow ? String(Object.values(firstRow)[0] ?? '') : '';
-       if (/^<\s*!?doctype|^<\s*html/i.test(firstCell)) {
-         reject(new Error('Got HTML instead of CSV. Use a "Publish to web → CSV" link.'));
-         return;
-       }
-       resolve(res.data);
-     },
-     error: (err)=> reject(err)
-   });
- });
-}
-// Normalize team strings for loose matching
+
+// Normalize team for matching
 function normTeam(s){
- s = String(s||'').trim();
- if(!s) return '';
- s = s.replace(/\s*\([^)]*\)\s*$/, '').trim(); // drop trailing spread e.g. "(-7.5)"
- s = s.replace(/^#\d+\s+/, '').trim();         // drop rank e.g. "#3 "
- return s.toLowerCase();
+  s = String(s||"").trim();
+  if(!s) return "";
+  s = s.replace(/\s*\([^)]*\)\s*$/,"").trim(); // drop trailing spread
+  s = s.replace(/^#\d+\s+/,"").trim();         // drop rank
+  return s.toLowerCase();
 }
-function fmtPct(n){ return (isNaN(n) ? '' : (n*100).toFixed(1) + '%'); }
+function fmtPct(n){ return (isNaN(n) ? "" : (n*100).toFixed(1) + "%"); }
+
 /* ============== STATE ============== */
 let qidToLine = new Map();      // QID -> Line text
 let qidToAway = new Map();      // QID -> Away team (raw)
 let qidToHome = new Map();      // QID -> Home team (raw)
-let qidToWinner = new Map();    // QID -> Winner raw string ("Tie" or team) or ""
+let qidToWinner = new Map();    // QID -> Winner raw ("Tie" or team) or ""
 let results = new Map();        // QID -> 'away' | 'home' | 'tie'
 let people = [];                // [{name, picks:[{qid, choice, isDouble}]}]
-/* ============== LOAD & PREP ============== */
-function normalizeLines(rows){
- rows.forEach(r=>{
-   const qid   = String(r["QID"]||r["qid"]||"").trim();
-   const line  = String(r["Line"]||r["line"]||"").trim();
-   const away  = String(r["Away"]||r["away"]||"").trim();
-   const home  = String(r["Home"]||r["home"]||"").trim();
-   const win   = String(r["Winner"]||r["winner"]||"").trim();
-   if(qid){
-     qidToLine.set(qid, line || qid);
-     qidToAway.set(qid, away);
-     qidToHome.set(qid, home);
-     qidToWinner.set(qid, win);
-   }
- });
+
+/* ============== LOAD & PREP ============== */ function normalizeLines(rows){
+  rows.forEach(r=>{
+    const qid   = String(r["QID"]||r["qid"]||"").trim();
+    const line  = String(r["Line"]||r["line"]||"").trim();
+    const away  = String(r["Away"]||r["away"]||"").trim();
+    const home  = String(r["Home"]||r["home"]||"").trim();
+    const win   = String(r["Winner"]||r["winner"]||"").trim();
+    if(qid){
+      qidToLine.set(qid, line || qid);
+      qidToAway.set(qid, away);
+      qidToHome.set(qid, home);
+      qidToWinner.set(qid, win);
+    }
+  });
 }
+
 function normalizeSubs(rows){
- const latest = new Map(); // name => latest timestamp
- rows.forEach(r=>{
-   const name = String(r["Name"]||r["name"]||"").trim();
-   if(!name) return;
-   const ts = String(r["Timestamp"]||r["timestamp"]||"").trim();
-   const prev = latest.get(name);
-   if(!prev || ts > prev) latest.set(name, ts);
- });
- const byName = new Map();
- rows.forEach(r=>{
-   const name   = String(r["Name"]||r["name"]||"").trim();
-   const ts     = String(r["Timestamp"]||r["timestamp"]||"").trim();
-   const qid    = String(r["QID"]||r["qid"]||"").trim();
-   const choice = String(r["Choice"]||r["choice"]||"").trim();
-   const isDouble = String(r["IsDouble"]).toUpperCase()==="TRUE";
-   if(!name || !qid) return;
-   if(latest.get(name) && ts !== latest.get(name)) return;
-   const p = byName.get(name) || { name, picks: [] };
-   p.picks.push({ qid, choice, isDouble });
-   byName.set(name, p);
- });
- const arr = Array.from(byName.values());
- arr.forEach(p => p.picks.sort((a,b)=> qidOrder(a.qid)-qidOrder(b.qid)));
- arr.sort((a,b)=> a.name.localeCompare(b.name, undefined, {sensitivity:'base'}));
- return arr;
+  // keep latest submission per person
+  const latest = new Map(); // name => ts
+  rows.forEach(r=>{
+    const name = String(r["Name"]||r["name"]||"").trim();
+    if(!name) return;
+    const ts = String(r["Timestamp"]||r["timestamp"]||"").trim();
+    const prev = latest.get(name);
+    if(!prev || ts > prev) latest.set(name, ts);
+  });
+
+  const byName = new Map();
+  rows.forEach(r=>{
+    const name   = String(r["Name"]||r["name"]||"").trim();
+    const ts     = String(r["Timestamp"]||r["timestamp"]||"").trim();
+    const qid    = String(r["QID"]||r["qid"]||"").trim();
+    const choice = String(r["Choice"]||r["choice"]||"").trim();
+    const isDouble = String(r["IsDouble"]).toUpperCase()==="TRUE";
+    if(!name || !qid) return;
+    if(latest.get(name) && ts !== latest.get(name)) return;
+
+    const p = byName.get(name) || { name, picks: [] };
+    p.picks.push({ qid, choice, isDouble });
+    byName.set(name, p);
+  });
+
+  const arr = Array.from(byName.values());
+  arr.forEach(p => p.picks.sort((a,b)=> qidOrder(a.qid)-qidOrder(b.qid)));
+  arr.sort((a,b)=> a.name.localeCompare(b.name, undefined, {sensitivity:'base'}));
+  return arr;
 }
+
 function outcomeFromWinner(qid){
- const w = (qidToWinner.get(qid) || "").trim();
- if(!w) return undefined;
- if (/^tie$/i.test(w)) return 'tie';
- const wNorm = normTeam(w);
- if (wNorm && wNorm === normTeam(qidToAway.get(qid)||"")) return 'away';
- if (wNorm && wNorm === normTeam(qidToHome.get(qid)||"")) return 'home';
- return undefined;
+  const w = (qidToWinner.get(qid) || "").trim();
+  if(!w) return undefined;
+  if (/^tie$/i.test(w)) return 'tie';
+  const wNorm = normTeam(w);
+  if (wNorm && wNorm === normTeam(qidToAway.get(qid)||"")) return 'away';
+  if (wNorm && wNorm === normTeam(qidToHome.get(qid)||"")) return 'home';
+  return undefined; // unrecognized
 }
+
 async function loadAll(){
- const [lines, subs] = await Promise.all([ fetchCSV(CSV_URL_LINES), fetchCSV(CSV_URL_SUBS) ]);
- // reset state and hydrate
- qidToLine.clear(); qidToAway.clear(); qidToHome.clear(); qidToWinner.clear(); results.clear();
- normalizeLines(lines);
- // Prefill locked results from Winner column
- Array.from(qidToLine.keys()).forEach(qid=>{
-   const oc = outcomeFromWinner(qid);
-   if(oc) results.set(qid, oc);
- });
- people = normalizeSubs(subs);
- renderGames();
- renderPeople();
+  try{
+    showErr('');
+    const [lines, subs] = await Promise.all([ fetchCSV(CSV_URL_LINES), fetchCSV(CSV_URL_SUBS) ]);
+    qidToLine.clear(); qidToAway.clear(); qidToHome.clear(); qidToWinner.clear(); results.clear();
+    normalizeLines(lines);
+
+    // prefill locked results from Winner column
+    Array.from(qidToLine.keys()).forEach(qid=>{
+      const oc = outcomeFromWinner(qid);
+      if(oc) results.set(qid, oc);
+    });
+
+    people = normalizeSubs(subs);
+    renderGames();
+    renderPeople();
+  }catch(e){
+    console.error(e);
+    showErr('Failed to load CSV: ' + (e && e.message ? e.message : e));
+  }
 }
 
 /* ========= COUNT PICKS PER GAME (for top panel & filter) ========= */ function getPickCounts(qid){
   const awayNorm = normTeam(qidToAway.get(qid) || "");
   const homeNorm = normTeam(qidToHome.get(qid) || "");
   let away = 0, home = 0;
-
   people.forEach(p=>{
     p.picks.forEach(pk=>{
       if(pk.qid !== qid) return;
       const c = normTeam(pk.choice);
-      const wt = pk.isDouble ? DOUBLE_COUNTS_AS : 1;  // weight doubles in counts (optional)
+      const wt = pk.isDouble ? DOUBLE_COUNTS_AS : 1; // set to 1 for unweighted counts
       if(c && c === awayNorm) away += wt;
       else if(c && c === homeNorm) home += wt;
     });
   });
-
   return { away, home };
 }
 
@@ -206,7 +227,6 @@ async function loadAll(){
   const panel = document.getElementById('gamesPanel');
   panel.innerHTML = '';
 
-  // QIDs ordered, then keep only games that have at least one pick
   const qidsAll = Array.from(qidToLine.keys()).sort((a,b)=> qidOrder(a)-qidOrder(b));
   const qids = qidsAll.filter(q=>{
     const c = getPickCounts(q);
@@ -225,7 +245,7 @@ async function loadAll(){
     const away = qidToAway.get(qid) || 'Away';
     const home = qidToHome.get(qid) || 'Home';
     const counts = getPickCounts(qid);
-    const lockedOutcome = outcomeFromWinner(qid); // undefined | 'away' | 'home' | 'tie'
+    const lockedOutcome = outcomeFromWinner(qid);
 
     if(lockedOutcome){
       const winnerText = lockedOutcome==='tie' ? 'Tie' : (lockedOutcome==='away' ? away : home);
@@ -239,10 +259,10 @@ async function loadAll(){
       div.innerHTML = `
         <div class="gline">${escapeHtml(qid)} — ${escapeHtml(qidToLine.get(qid) || qid)}</div>
         <button class="gbtn away ${results.get(qid)==='away'?'active':''}" data-qid="${qid}" data-val="away">
-          ${escapeHtml(away)} (${counts.away})
+          ${escapeHtml(away)} <span class="count">(${counts.away})</span>
         </button>
         <button class="gbtn home ${results.get(qid)==='home'?'active':''}" data-qid="${qid}" data-val="home">
-          ${escapeHtml(home)} (${counts.home})
+          ${escapeHtml(home)} <span class="count">(${counts.home})</span>
         </button>
         <button class="gbtn tie  ${results.get(qid)==='tie'?'active':''}"  data-qid="${qid}" data-val="tie">Tie</button>
       `;
@@ -250,7 +270,6 @@ async function loadAll(){
     panel.appendChild(div);
   });
 
-  // local scenario clicks (ignored if Winner is set in CSV)
   panel.onclick = (e)=>{
     const btn = e.target.closest('.gbtn');
     if(!btn) return;
@@ -265,12 +284,12 @@ async function loadAll(){
     row.querySelectorAll('.gbtn').forEach(b=> b.classList.remove('active'));
     if(results.has(qid)) row.querySelector(`.gbtn.${results.get(qid)}`)?.classList.add('active');
 
-    renderPeople(); // re-score tables & leaderboards
+    renderPeople(); // re-score
   };
 }
 
 /* ============== SCORING ============== */ function scorePick(qid, choice, isDouble){
-  const outcome = results.get(qid); // undefined | 'away' | 'home' | 'tie'
+  const outcome = results.get(qid);
   if(!outcome) return { w:0, l:0, t:0 };
 
   const awayNorm = normTeam(qidToAway.get(qid) || '');
@@ -290,12 +309,11 @@ async function loadAll(){
   return { w,l,t };
 }
 
-/* ============== RENDER: PEOPLE TABLES + LEADERBOARDS ============== */ function renderPeople(){
+/* ============== RENDER: PEOPLE TABLES + FULL STANDINGS ============== */ function renderPeople(){
   const list = document.getElementById('list');
-  const lbWrap = document.getElementById('leaderboards');
+  const st = document.getElementById('standings');
   list.innerHTML = '';
-
-  const summaries = [];
+  let summaries = [];
 
   people.forEach(p=>{
     let rowsHtml = '';
@@ -304,10 +322,7 @@ async function loadAll(){
     p.picks.forEach((pk, idx)=>{
       const s = scorePick(pk.qid, pk.choice, pk.isDouble);
       tw += s.w; tl += s.l; tt += s.t;
-      const cls =
-        s.w ? 'result-win' :
-        s.l ? 'result-loss' :
-        s.t ? 'result-tie'  : '';
+      const cls = s.w ? 'result-win' : s.l ? 'result-loss' : s.t ? 'result-tie' : '';
       rowsHtml += `
         <tr>
           <td class="col-idx">${idx+1}</td>
@@ -323,7 +338,7 @@ async function loadAll(){
     const denom = tw + tl + tt;
     const pct = denom > 0 ? (tw + 0.5*tt) / denom : NaN;
 
-    summaries.push({ name:p.name, w:tw, l:tl, t:tt, pct });
+    summaries.push({ name:p.name, w:tw, l:tl, t:tt, pct, denom });
 
     const table = `
       <table>
@@ -357,59 +372,45 @@ async function loadAll(){
     list.appendChild(card);
   });
 
-  renderLeaderboards(summaries);
+  renderStandings(summaries);
 }
 
-function renderLeaderboards(summaries){
-  const lbWrap = document.getElementById('leaderboards');
-  const lbPct  = document.getElementById('lbPct');
-  const lbWins = document.getElementById('lbWins');
+function renderStandings(summaries){
+  const st = document.getElementById('standings');
+  const valid = summaries.filter(s => s.denom > 0);
+  if(valid.length === 0){ st.hidden = true; st.innerHTML = ""; return; }
+  st.hidden = false;
 
-  const valid = summaries.filter(s => (s.w + s.l + s.t) > 0);
-  lbWrap.hidden = valid.length === 0;
-  if(lbWrap.hidden) return;
-
-  // Top 5 by Win %
-  const byPct = [...valid].sort((a,b)=>{
-    if(isNaN(b.pct) && isNaN(a.pct)) return a.name.localeCompare(b.name);
-    if(isNaN(b.pct)) return -1;
-    if(isNaN(a.pct)) return 1;
-    if(b.pct !== a.pct) return b.pct - a.pct;
-    if(b.w !== a.w) return b.w - a.w;
-    return a.name.localeCompare(b.name);
-  }).slice(0,5);
-
-  // Top 5 by Wins
-  const byWins = [...valid].sort((a,b)=>{
-    if(b.w !== a.w) return b.w - a.w;
+  const rows = [...valid].sort((a,b)=>{
     const ap = isNaN(a.pct)? -1 : a.pct, bp = isNaN(b.pct)? -1 : b.pct;
     if(bp !== ap) return bp - ap;
+    if(b.w !== a.w) return b.w - a.w;
     return a.name.localeCompare(b.name);
-  }).slice(0,5);
+  });
 
-  lbPct.innerHTML = `
-    <h2>Top 5 — Win %</h2>
-    <table>
-      ${byPct.map((s,i)=>`
-        <tr>
-          <td style="width:24px;text-align:right;color:#888">${i+1}.</td>
-          <td>${escapeHtml(s.name)}</td>
-          <td class="mono" style="width:80px;text-align:right">${fmtPct(s.pct)}</td>
-          <td class="mono" style="width:120px;text-align:right">${s.w}-${s.l}-${s.t}</td>
-        </tr>`).join("")}
-    </table>
-  `;
+  const tbody = rows.map((s, i)=>`
+    <tr>
+      <td class="rank">${i+1}.</td>
+      <td>${escapeHtml(s.name)}</td>
+      <td class="stat mono">${fmtPct(s.pct)}</td>
+      <td class="stat mono">${s.w}-${s.l}-${s.t}</td>
+      <td class="stat mono">${s.denom}</td>
+    </tr>
+  `).join("");
 
-  lbWins.innerHTML = `
-    <h2>Top 5 — Wins</h2>
+  st.innerHTML = `
+    <h2>Standings</h2>
     <table>
-      ${byWins.map((s,i)=>`
+      <thead>
         <tr>
-          <td style="width:24px;text-align:right;color:#888">${i+1}.</td>
-          <td>${escapeHtml(s.name)}</td>
-          <td class="mono" style="width:60px;text-align:right">${s.w}</td>
-          <td class="mono" style="width:120px;text-align:right">${fmtPct(s.pct)}</td>
-        </tr>`).join("")}
+          <th class="rank">#</th>
+          <th>Name</th>
+          <th class="stat">Win %</th>
+          <th class="stat">W-L-T</th>
+          <th class="stat">Picks</th>
+        </tr>
+      </thead>
+      <tbody>${tbody}</tbody>
     </table>
   `;
 }
@@ -421,4 +422,3 @@ loadAll();
 </script>
 </body>
 </html>
-
