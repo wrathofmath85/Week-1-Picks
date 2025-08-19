@@ -2,15 +2,17 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" /> <title>Spread Pool — Picks</title> <link rel="preconnect" href="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdn.jsdelivr.net%2F&data=05%7C02%7Cdan.fox%40brighthousefinancial.com%7Cf540e4d181154ff37aee08dddeb46b23%7C2658e698ac384347a56f3f96a6bfa8ff%7C0%7C0%7C638911588689176111%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=gzWbX2zPvf6%2FZ1TqW6V%2Bd3jWkwzm%2F8Hd%2FJOyOB3NdvU%3D&reserved=0" /> <script src="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fpapaparse%405.4.1%2Fpapaparse.min.js&data=05%7C02%7Cdan.fox%40brighthousefinancial.com%7Cf540e4d181154ff37aee08dddeb46b23%7C2658e698ac384347a56f3f96a6bfa8ff%7C0%7C0%7C638911588689202630%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=GNUqWSNmeNEhiCyntMfU3xF2cewkHWMvAjTSee8AHlw%3D&reserved=0"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1" /> <title>Spread Pool — Picks</title> <link rel="preconnect" href="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdn.jsdelivr.net%2F&data=05%7C02%7Cdan.fox%40brighthousefinancial.com%7Ce9fc6a5a57ce49323e4508dddeb657c6%7C2658e698ac384347a56f3f96a6bfa8ff%7C0%7C0%7C638911596922783122%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=fdg079Xp%2Fb20tRzcJiQT0u8icT9iUXj%2BHMrKf6LQCuw%3D&reserved=0" /> <script src="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fpapaparse%405.4.1%2Fpapaparse.min.js&data=05%7C02%7Cdan.fox%40brighthousefinancial.com%7Ce9fc6a5a57ce49323e4508dddeb657c6%7C2658e698ac384347a56f3f96a6bfa8ff%7C0%7C0%7C638911596922810499%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=4vTLv7IVhjTjBuXYs%2BSIHRk3H1R16MNH670MTVmg5I0%3D&reserved=0"></script>
 <style>
   :root{
     --bg:#ffffff; --text:#111; --muted:#666; --rule:#ddd; --accent:#0b61ff;
     --green:#16a34a; --red:#dc2626; --gray:#6b7280; --chip:#0b5; --count:#b45309;
+    --neon:#39ff14; --neonText:#062b00;
   }
   html,body{background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;margin:0}
   .wrap{max-width:1200px;margin:28px auto;padding:0 16px 64px}
   h1{margin:0 0 12px}
+
   #err{display:none;color:#b91c1c;background:#fee2e2;border:1px solid #fecaca;padding:8px 12px;border-radius:8px;margin:8px 0}
 
   /* Games panel */
@@ -32,7 +34,14 @@
 
   /* People cards & tables */
   .person{border:1px solid var(--rule);border-radius:10px;padding:12px}
-  .pname{font-weight:800;font-size:18px;margin:0 0 8px}
+  .header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  .pname{font-weight:800;font-size:18px;margin:0}
+  .badge-defaults{
+    background:var(--neon); color:var(--neonText); font-weight:900;
+    padding:2px 8px; border-radius:999px; text-transform:uppercase; letter-spacing:.5px;
+    box-shadow:0 0 8px rgba(57,255,20,.6), inset 0 0 2px rgba(0,0,0,.2);
+    font-size:12px;
+  }
   table{width:100%;border-collapse:collapse}
   th,td{padding:7px 8px;vertical-align:top}
   th{text-align:left;border-bottom:2px solid #000}
@@ -75,8 +84,9 @@
 <script>
 /* ================== CONFIG ================== */
 /* Publish each tab as CSV (File → Share → Publish to web → select tab → CSV) and paste URLs here */
-const CSV_URL_LINES = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTUQWcddGBeI13Qox_fKf1g9dejkd-VyZqimSwHaXPH4nO4AGE9oJo9-FzNacU4X1-xNvFvm0HOFHre/pub?gid=1347498364&single=true&output=csv";       // QID,Line,Away,Home,Winner,DateTime
-const CSV_URL_SUBS  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRys9xayYsuEqgGB09v1nOrwdD0U5c1Hb1ksLqQxTSBzLi3AKGeg9yPt1-eY1fry_0H-KcZLCQ1h8H6/pub?gid=0&single=true&output=csv"; // Timestamp,Week,Name,Email,QID,Choice,IsDouble
+const CSV_URL_LINES        = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTUQWcddGBeI13Qox_fKf1g9dejkd-VyZqimSwHaXPH4nO4AGE9oJo9-FzNacU4X1-xNvFvm0HOFHre/pub?gid=1347498364&single=true&output=csv";        // QID,Line,Away,Home,Winner,DateTime
+const CSV_URL_SUBS         = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRys9xayYsuEqgGB09v1nOrwdD0U5c1Hb1ksLqQxTSBzLi3AKGeg9yPt1-eY1fry_0H-KcZLCQ1h8H6/pub?gid=0&single=true&output=csv";  // Timestamp,Week,Name,Email,QID,Choice,IsDouble
+const CSV_URL_PARTICIPANTS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTfQ7a2weK5Got7LTe3yVxqhcPR6pa-nPg73PdOMk8rrHwqlr3UeTcPprlgVbFjhFIVpifmMKnb_Tss/pub?gid=0&single=true&output=cs"; // Name (required) 
 const DOUBLE_COUNTS_AS = 2; // set to 1 if Double should not count extra
 
 /* ================ HELPERS =================== */ const by = f => (a,b)=> f(a)<f(b)?-1:f(a)>f(b)?1:0; function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
@@ -85,7 +95,7 @@ function qidOrder(q){ if(!q) return 9999; const s=q[0], n=parseInt(q.slice(1),10
 function showErr(msg){
   const box = document.getElementById('err');
   if (!box) return;
-  if (msg) { box.style.display='block'; box.innerHTML = escapeHtml(msg) + '<div style="margin-top:6px;font-size:12px;opacity:.8">Lines URL: '+escapeHtml(CSV_URL_LINES)+'<br>Subs URL: '+escapeHtml(CSV_URL_SUBS)+'</div>'; }
+  if (msg) { box.style.display='block'; box.innerHTML = escapeHtml(msg) + '<div style="margin-top:6px;font-size:12px;opacity:.8">Lines: '+escapeHtml(CSV_URL_LINES)+'<br>Subs: '+escapeHtml(CSV_URL_SUBS)+'<br>Participants: '+escapeHtml(CSV_URL_PARTICIPANTS)+'</div>'; }
   else { box.style.display='none'; box.innerHTML=''; } }
 
 // Cache-busted CSV fetch with guard against HTML 
@@ -130,7 +140,8 @@ let qidToHome   = new Map();      // QID -> Home team (raw)
 let qidToWinner = new Map();      // QID -> Winner raw ("Tie" or team) or ""
 let qidToDate   = new Map();      // QID -> Date object (from DateTime)
 let results     = new Map();      // QID -> 'away' | 'home' | 'tie'
-let people      = [];             // [{name, picks:[{qid, choice, isDouble}]}]
+let people      = [];             // [{name, picks:[{qid, choice, isDouble}], isDefaults?:true}]
+let participantNames = [];        // ["Name A", "Name B", ...]
 
 /* ============== LOAD & PREP ============== */ function normalizeLines(rows){
   rows.forEach(r=>{
@@ -182,6 +193,14 @@ function normalizeSubs(rows){
   return arr;
 }
 
+function normalizeParticipants(rows){
+  const set = new Set();
+  rows.forEach(r=>{
+    const nm = String(r["Name"]||r["name"]||"").trim();
+    if(nm) set.add(nm);
+  });
+  return Array.from(set).sort((a,b)=> a.localeCompare(b, undefined, {sensitivity:'base'})); }
+
 function outcomeFromWinner(qid){
   const w = (qidToWinner.get(qid) || "").trim();
   if(!w) return undefined;
@@ -196,6 +215,8 @@ function outcomeFromWinner(qid){
   const line = qidToLine.get(qid) || "";
   const away = qidToAway.get(qid) || "";
   const home = qidToHome.get(qid) || "";
+  if(!away || !home) return null;
+
   const awayRe = new RegExp("\\b"+escapeRegex(away)+"\\s*\\(([-+]?\\d+(?:\\.\\d+)?)\\)", "i");
   const homeRe = new RegExp("\\b"+escapeRegex(home)+"\\s*\\(([-+]?\\d+(?:\\.\\d+)?)\\)", "i");
 
@@ -205,53 +226,49 @@ function outcomeFromWinner(qid){
   const mAway = awayRe.exec(line);
   if(mAway && parseFloat(mAway[1]) < 0) return away;
 
-  // Fallback: if the line contains any "(-" and we can't tie it to a team, assume Home is favorite
-  if(/\(-\d/.test(line)) return home;
-
-  // Unknown favorite
+  if(/\(-\d/.test(line)) return home; // fallback guess
   return null;
 }
 
-/* ---------- Build synthetic "Default Picks" ---------- */ function buildDefaultPicks(){
+/* ---------- Build Default Picks set ---------- */ function computeDefaultPicksSet(){
   const picks = [];
   const seen = new Set();
-
   function addFav(qid){
     if(!qid || seen.has(qid)) return;
     if(!qidToLine.has(qid)) return;
     const fav = detectFavorite(qid);
-    if(!fav) return; // skip if we can't determine favorite cleanly
+    if(!fav) return;
     picks.push({ qid, choice: fav, isDouble: false });
     seen.add(qid);
   }
-
-  // A1 & B1 favorites
   addFav('A1');
   addFav('B1');
 
-  // First 2 A games on Sunday (day=0)
+  // First 2 A games on Sunday (day 0)
   const aSunday = Array.from(qidToLine.keys())
     .filter(q=> q.startsWith('A') && qidToDate.get(q) && qidToDate.get(q).getDay()===0)
     .sort((a,b)=> (qidToDate.get(a)-qidToDate.get(b)) || qidOrder(a)-qidOrder(b))
     .slice(0,2);
   aSunday.forEach(addFav);
 
-  // First 3 B games on Saturday (day=6)
+  // First 3 B games on Saturday (day 6)
   const bSaturday = Array.from(qidToLine.keys())
     .filter(q=> q.startsWith('B') && qidToDate.get(q) && qidToDate.get(q).getDay()===6)
     .sort((a,b)=> (qidToDate.get(a)-qidToDate.get(b)) || qidOrder(a)-qidOrder(b))
     .slice(0,3);
   bSaturday.forEach(addFav);
 
-  if(picks.length===0) return null;
-  // Sort picks in QID order for nice display
   picks.sort((a,b)=> qidOrder(a.qid)-qidOrder(b.qid));
-  return { name: "Default Picks", picks }; }
+  return picks;
+}
 
 async function loadAll(){
   try{
     showErr('');
-    const [lines, subs] = await Promise.all([ fetchCSV(CSV_URL_LINES), fetchCSV(CSV_URL_SUBS) ]);
+    const [lines, subs, parts] = await Promise.all([
+      fetchCSV(CSV_URL_LINES), fetchCSV(CSV_URL_SUBS), fetchCSV(CSV_URL_PARTICIPANTS)
+    ]);
+
     qidToLine.clear(); qidToAway.clear(); qidToHome.clear(); qidToWinner.clear(); qidToDate.clear(); results.clear();
     normalizeLines(lines);
 
@@ -261,13 +278,22 @@ async function loadAll(){
       if(oc) results.set(qid, oc);
     });
 
-    people = normalizeSubs(subs);
+    // normalize data sets
+    people = normalizeSubs(subs);                 // actual pick submitters
+    participantNames = normalizeParticipants(parts); // full roster
 
-    // Insert Default Picks at the very top (not alphabetized)
-    const defaults = buildDefaultPicks();
-    if(defaults){
-      people = [defaults, ...people];
-    }
+    // for any participant with no picks, assign defaults
+    const have = new Set(people.map(p=>p.name.toLowerCase()));
+    const defaultSet = computeDefaultPicksSet();
+    participantNames.forEach(nm=>{
+      if(!have.has(nm.toLowerCase())){
+        people.push({ name:nm, picks:[...defaultSet], isDefaults:true });
+      }
+    });
+
+    // final sort: keep alphabetical except we already appended missing with defaults;
+    // enforce alphabetical overall for consistency
+    people.sort((a,b)=> a.name.localeCompare(b.name, undefined, {sensitivity:'base'}));
 
     renderGames();
     renderPeople();
@@ -413,6 +439,10 @@ async function loadAll(){
     summaries.push({ name:p.name, w:tw, l:tl, t:tt, pct, denom });
 
     const table = `
+      <div class="header">
+        <div class="pname">${escapeHtml(p.name)}</div>
+        ${p.isDefaults ? '<span class="badge-defaults" title="No submission — defaults applied">Defaults</span>' : ''}
+      </div>
       <table>
         <thead>
           <tr>
@@ -440,7 +470,7 @@ async function loadAll(){
 
     const card = document.createElement('div');
     card.className = 'person';
-    card.innerHTML = `<div class="pname">${escapeHtml(p.name)}</div>` + table;
+    card.innerHTML = table;
     list.appendChild(card);
   });
 
@@ -494,3 +524,5 @@ loadAll();
 </script>
 </body>
 </html>
+
+
