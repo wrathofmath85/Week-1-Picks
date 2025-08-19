@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" /> <title>Spread Pool — Picks</title> <link rel="preconnect" href="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdn.jsdelivr.net%2F&data=05%7C02%7Cdan.fox%40brighthousefinancial.com%7C08652f62b60348b1f63f08dddeb233e9%7C2658e698ac384347a56f3f96a6bfa8ff%7C0%7C0%7C638911579142808950%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=AD%2BQwqPZiT2WLTypH8MfJijM0lQ5e9iF0Q5rAhHLXLU%3D&reserved=0" /> <script src="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fpapaparse%405.4.1%2Fpapaparse.min.js&data=05%7C02%7Cdan.fox%40brighthousefinancial.com%7C08652f62b60348b1f63f08dddeb233e9%7C2658e698ac384347a56f3f96a6bfa8ff%7C0%7C0%7C638911579142837591%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=J71NoXBxTvJWwGbajojO5BlizHvQQ2H5Ds6tpkKo4gg%3D&reserved=0"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1" /> <title>Spread Pool — Picks</title> <link rel="preconnect" href="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdn.jsdelivr.net%2F&data=05%7C02%7Cdan.fox%40brighthousefinancial.com%7Cf540e4d181154ff37aee08dddeb46b23%7C2658e698ac384347a56f3f96a6bfa8ff%7C0%7C0%7C638911588689176111%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=gzWbX2zPvf6%2FZ1TqW6V%2Bd3jWkwzm%2F8Hd%2FJOyOB3NdvU%3D&reserved=0" /> <script src="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fpapaparse%405.4.1%2Fpapaparse.min.js&data=05%7C02%7Cdan.fox%40brighthousefinancial.com%7Cf540e4d181154ff37aee08dddeb46b23%7C2658e698ac384347a56f3f96a6bfa8ff%7C0%7C0%7C638911588689202630%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=GNUqWSNmeNEhiCyntMfU3xF2cewkHWMvAjTSee8AHlw%3D&reserved=0"></script>
 <style>
   :root{
     --bg:#ffffff; --text:#111; --muted:#666; --rule:#ddd; --accent:#0b61ff;
@@ -11,7 +11,6 @@
   html,body{background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;margin:0}
   .wrap{max-width:1200px;margin:28px auto;padding:0 16px 64px}
   h1{margin:0 0 12px}
-
   #err{display:none;color:#b91c1c;background:#fee2e2;border:1px solid #fecaca;padding:8px 12px;border-radius:8px;margin:8px 0}
 
   /* Games panel */
@@ -61,12 +60,11 @@
 <div class="wrap">
   <h1>Spread Pool — Picks</h1>
 
-  <!-- error box -->
   <div id="err"></div>
 
   <!-- GAME OUTCOME CONTROLS -->
   <div id="gamesPanel" class="games"></div>
-  <div class="note">Set the official result per game. If the <strong>Winner</strong> column is filled in the Lines sheet, the game is locked for everyone. Totals & standings update instantly. (Double counts as ×2 by default.)</div>
+  <div class="note">Set the official result per game. If the <strong>Winner</strong> column is filled in the Lines sheet, the game is locked for everyone. Totals & standings update instantly.</div>
 
   <!-- PEOPLE (2-column) -->
   <div id="list"></div>
@@ -77,8 +75,8 @@
 <script>
 /* ================== CONFIG ================== */
 /* Publish each tab as CSV (File → Share → Publish to web → select tab → CSV) and paste URLs here */
-const CSV_URL_LINES = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTUQWcddGBeI13Qox_fKf1g9dejkd-VyZqimSwHaXPH4nO4AGE9oJo9-FzNacU4X1-xNvFvm0HOFHre/pub?gid=1347498364&single=true&output=csv";       // columns: QID,Line,Away,Home,Winner
-const CSV_URL_SUBS  = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRys9xayYsuEqgGB09v1nOrwdD0U5c1Hb1ksLqQxTSBzLi3AKGeg9yPt1-eY1fry_0H-KcZLCQ1h8H6/pub?gid=0&single=true&output=csv"; // columns: Timestamp,Week,Name,Email,QID,Choice,IsDouble
+const CSV_URL_LINES = "PASTE_LINES_CSV_URL_HERE";       // QID,Line,Away,Home,Winner,DateTime
+const CSV_URL_SUBS  = "PASTE_SUBMISSIONS_CSV_URL_HERE"; // Timestamp,Week,Name,Email,QID,Choice,IsDouble
 const DOUBLE_COUNTS_AS = 2; // set to 1 if Double should not count extra
 
 /* ================ HELPERS =================== */ const by = f => (a,b)=> f(a)<f(b)?-1:f(a)>f(b)?1:0; function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
@@ -90,8 +88,7 @@ function showErr(msg){
   if (msg) { box.style.display='block'; box.innerHTML = escapeHtml(msg) + '<div style="margin-top:6px;font-size:12px;opacity:.8">Lines URL: '+escapeHtml(CSV_URL_LINES)+'<br>Subs URL: '+escapeHtml(CSV_URL_SUBS)+'</div>'; }
   else { box.style.display='none'; box.innerHTML=''; } }
 
-// Cache-busted CSV fetch with guard against HTML 
-function fetchCSV(url){
+// Cache-busted CSV fetch with guard against HTML function fetchCSV(url){
   const bust = (url.includes('?') ? '&' : '?') + 'cb=' + Date.now();
   return new Promise((resolve,reject)=>{
     Papa.parse(url + bust,{
@@ -118,15 +115,21 @@ function normTeam(s){
   s = s.replace(/^#\d+\s+/,"").trim();         // drop rank
   return s.toLowerCase();
 }
-function fmtPct(n){ return (isNaN(n) ? "" : (n*100).toFixed(1) + "%"); }
+function fmtPct(n){ return (isNaN(n) ? "" : (n*100).toFixed(1) + "%"); } function toDate(val){
+  if(!val) return null;
+  const d = new Date(val);
+  return isNaN(+d) ? null : d;
+}
+function escapeRegex(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
 
 /* ============== STATE ============== */
-let qidToLine = new Map();      // QID -> Line text
-let qidToAway = new Map();      // QID -> Away team (raw)
-let qidToHome = new Map();      // QID -> Home team (raw)
-let qidToWinner = new Map();    // QID -> Winner raw ("Tie" or team) or ""
-let results = new Map();        // QID -> 'away' | 'home' | 'tie'
-let people = [];                // [{name, picks:[{qid, choice, isDouble}]}]
+let qidToLine   = new Map();      // QID -> Line text
+let qidToAway   = new Map();      // QID -> Away team (raw)
+let qidToHome   = new Map();      // QID -> Home team (raw)
+let qidToWinner = new Map();      // QID -> Winner raw ("Tie" or team) or ""
+let qidToDate   = new Map();      // QID -> Date object (from DateTime)
+let results     = new Map();      // QID -> 'away' | 'home' | 'tie'
+let people      = [];             // [{name, picks:[{qid, choice, isDouble}]}]
 
 /* ============== LOAD & PREP ============== */ function normalizeLines(rows){
   rows.forEach(r=>{
@@ -135,11 +138,13 @@ let people = [];                // [{name, picks:[{qid, choice, isDouble}]}]
     const away  = String(r["Away"]||r["away"]||"").trim();
     const home  = String(r["Home"]||r["home"]||"").trim();
     const win   = String(r["Winner"]||r["winner"]||"").trim();
+    const dtStr = String(r["DateTime"]||r["datetime"]||"").trim();
     if(qid){
       qidToLine.set(qid, line || qid);
       qidToAway.set(qid, away);
       qidToHome.set(qid, home);
       qidToWinner.set(qid, win);
+      qidToDate.set(qid, toDate(dtStr));
     }
   });
 }
@@ -186,11 +191,67 @@ function outcomeFromWinner(qid){
   return undefined; // unrecognized
 }
 
+/* ---------- Favorite detection from Line text ---------- */ function detectFavorite(qid){
+  const line = qidToLine.get(qid) || "";
+  const away = qidToAway.get(qid) || "";
+  const home = qidToHome.get(qid) || "";
+  const awayRe = new RegExp("\\b"+escapeRegex(away)+"\\s*\\(([-+]?\\d+(?:\\.\\d+)?)\\)", "i");
+  const homeRe = new RegExp("\\b"+escapeRegex(home)+"\\s*\\(([-+]?\\d+(?:\\.\\d+)?)\\)", "i");
+
+  const mHome = homeRe.exec(line);
+  if(mHome && parseFloat(mHome[1]) < 0) return home;
+
+  const mAway = awayRe.exec(line);
+  if(mAway && parseFloat(mAway[1]) < 0) return away;
+
+  // Fallback: if the line contains any "(-" and we can't tie it to a team, assume Home is favorite
+  if(/\(-\d/.test(line)) return home;
+
+  // Unknown favorite
+  return null;
+}
+
+/* ---------- Build synthetic "Default Picks" ---------- */ function buildDefaultPicks(){
+  const picks = [];
+  const seen = new Set();
+
+  function addFav(qid){
+    if(!qid || seen.has(qid)) return;
+    if(!qidToLine.has(qid)) return;
+    const fav = detectFavorite(qid);
+    if(!fav) return; // skip if we can't determine favorite cleanly
+    picks.push({ qid, choice: fav, isDouble: false });
+    seen.add(qid);
+  }
+
+  // A1 & B1 favorites
+  addFav('A1');
+  addFav('B1');
+
+  // First 2 A games on Sunday (day=0)
+  const aSunday = Array.from(qidToLine.keys())
+    .filter(q=> q.startsWith('A') && qidToDate.get(q) && qidToDate.get(q).getDay()===0)
+    .sort((a,b)=> (qidToDate.get(a)-qidToDate.get(b)) || qidOrder(a)-qidOrder(b))
+    .slice(0,2);
+  aSunday.forEach(addFav);
+
+  // First 3 B games on Saturday (day=6)
+  const bSaturday = Array.from(qidToLine.keys())
+    .filter(q=> q.startsWith('B') && qidToDate.get(q) && qidToDate.get(q).getDay()===6)
+    .sort((a,b)=> (qidToDate.get(a)-qidToDate.get(b)) || qidOrder(a)-qidOrder(b))
+    .slice(0,3);
+  bSaturday.forEach(addFav);
+
+  if(picks.length===0) return null;
+  // Sort picks in QID order for nice display
+  picks.sort((a,b)=> qidOrder(a.qid)-qidOrder(b.qid));
+  return { name: "Default Picks", picks }; }
+
 async function loadAll(){
   try{
     showErr('');
     const [lines, subs] = await Promise.all([ fetchCSV(CSV_URL_LINES), fetchCSV(CSV_URL_SUBS) ]);
-    qidToLine.clear(); qidToAway.clear(); qidToHome.clear(); qidToWinner.clear(); results.clear();
+    qidToLine.clear(); qidToAway.clear(); qidToHome.clear(); qidToWinner.clear(); qidToDate.clear(); results.clear();
     normalizeLines(lines);
 
     // prefill locked results from Winner column
@@ -200,6 +261,13 @@ async function loadAll(){
     });
 
     people = normalizeSubs(subs);
+
+    // Insert Default Picks at the very top (not alphabetized)
+    const defaults = buildDefaultPicks();
+    if(defaults){
+      people = [defaults, ...people];
+    }
+
     renderGames();
     renderPeople();
   }catch(e){
@@ -212,6 +280,7 @@ async function loadAll(){
   const awayNorm = normTeam(qidToAway.get(qid) || "");
   const homeNorm = normTeam(qidToHome.get(qid) || "");
   let away = 0, home = 0;
+
   people.forEach(p=>{
     p.picks.forEach(pk=>{
       if(pk.qid !== qid) return;
@@ -221,6 +290,7 @@ async function loadAll(){
       else if(c && c === homeNorm) home += wt;
     });
   });
+
   return { away, home };
 }
 
