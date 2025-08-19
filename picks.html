@@ -1,8 +1,11 @@
+Caution: This email originated from outside of the organization. Do not click links or open attachments unless you recognize the sender and know the content is safe.
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" /> <title>Spread Pool — Picks</title> <link rel="preconnect" href="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdn.jsdelivr.net%2F&data=05%7C02%7Cdan.fox%40brighthousefinancial.com%7Ce9fc6a5a57ce49323e4508dddeb657c6%7C2658e698ac384347a56f3f96a6bfa8ff%7C0%7C0%7C638911596922783122%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=fdg079Xp%2Fb20tRzcJiQT0u8icT9iUXj%2BHMrKf6LQCuw%3D&reserved=0" /> <script src="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fpapaparse%405.4.1%2Fpapaparse.min.js&data=05%7C02%7Cdan.fox%40brighthousefinancial.com%7Ce9fc6a5a57ce49323e4508dddeb657c6%7C2658e698ac384347a56f3f96a6bfa8ff%7C0%7C0%7C638911596922810499%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=4vTLv7IVhjTjBuXYs%2BSIHRk3H1R16MNH670MTVmg5I0%3D&reserved=0"></script>
+<meta name="viewport" content="width=device-width,initial-scale=1" /> <title>Spread Pool — Picks</title> <link rel="preconnect" href="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdn.jsdelivr.net%2F&data=05%7C02%7Cdan.fox%40brighthousefinancial.com%7Ce8a61f7aaddd4ab94a8108dddebff5f6%7C2658e698ac384347a56f3f96a6bfa8ff%7C0%7C0%7C638911638262694978%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=Pgt3MvcLMskRSOfNdZQlPwRp%2FgggCk%2FiPgf49Cu9flA%3D&reserved=0" /> <script src="https://nam04.safelinks.protection.outlook.com/?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fpapaparse%405.4.1%2Fpapaparse.min.js&data=05%7C02%7Cdan.fox%40brighthousefinancial.com%7Ce8a61f7aaddd4ab94a8108dddebff5f6%7C2658e698ac384347a56f3f96a6bfa8ff%7C0%7C0%7C638911638262721058%7CUnknown%7CTWFpbGZsb3d8eyJFbXB0eU1hcGkiOnRydWUsIlYiOiIwLjAuMDAwMCIsIlAiOiJXaW4zMiIsIkFOIjoiTWFpbCIsIldUIjoyfQ%3D%3D%7C0%7C%7C%7C&sdata=Ae2qd5B6Wuf7%2BJyDnzfPYo7TuxH%2FAqucvy84aLewuEE%3D&reserved=0"></script>
 <style>
   :root{
     --bg:#ffffff; --text:#111; --muted:#666; --rule:#ddd; --accent:#0b61ff;
@@ -12,7 +15,6 @@
   html,body{background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;margin:0}
   .wrap{max-width:1200px;margin:28px auto;padding:0 16px 64px}
   h1{margin:0 0 12px}
-
   #err{display:none;color:#b91c1c;background:#fee2e2;border:1px solid #fecaca;padding:8px 12px;border-radius:8px;margin:8px 0}
 
   /* Games panel */
@@ -58,11 +60,15 @@
   /* Standings */
   .standings{margin-top:28px}
   .standings h2{margin:8px 0 10px}
+  .toolbar{display:flex;gap:8px;margin:8px 0 12px}
+  .toolbar button{padding:6px 10px;border:1px solid var(--rule);background:#f7f7f7;border-radius:8px;cursor:pointer}
+  .toolbar button.active{border-color:var(--accent);box-shadow:0 0 0 2px rgba(11,97,255,.15)}
   .standings table{width:100%}
   .standings td,.standings th{padding:8px;border-bottom:1px solid var(--rule)}
   .standings th{text-align:left;border-bottom:2px solid #000}
   .rank{width:42px;text-align:right;color:#888}
   .stat{width:100px;text-align:right}
+  .nameCell{display:flex;align-items:center;gap:8px}
 </style>
 </head>
 <body>
@@ -78,16 +84,24 @@
   <!-- PEOPLE (2-column) -->
   <div id="list"></div>
 
-  <!-- FULL STANDINGS -->
-  <div class="standings" id="standings" hidden></div> </div>
+  <!-- FULL STANDINGS + SORT FILTERS -->
+  <div class="standings" id="standingsWrap" hidden>
+    <h2>Standings</h2>
+    <div class="toolbar">
+      <button id="sort-alpha">Alphabetical</button>
+      <button id="sort-percent">By Win %</button>
+      <button id="sort-wins">Most Wins</button>
+    </div>
+    <div id="standings"></div>
+  </div>
+</div>
 
 <script>
 /* ================== CONFIG ================== */
 /* Publish each tab as CSV (File → Share → Publish to web → select tab → CSV) and paste URLs here */
 const CSV_URL_LINES        = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTUQWcddGBeI13Qox_fKf1g9dejkd-VyZqimSwHaXPH4nO4AGE9oJo9-FzNacU4X1-xNvFvm0HOFHre/pub?gid=1347498364&single=true&output=csv";        // QID,Line,Away,Home,Winner,DateTime
 const CSV_URL_SUBS         = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRys9xayYsuEqgGB09v1nOrwdD0U5c1Hb1ksLqQxTSBzLi3AKGeg9yPt1-eY1fry_0H-KcZLCQ1h8H6/pub?gid=0&single=true&output=csv";  // Timestamp,Week,Name,Email,QID,Choice,IsDouble
-const CSV_URL_PARTICIPANTS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTfQ7a2weK5Got7LTe3yVxqhcPR6pa-nPg73PdOMk8rrHwqlr3UeTcPprlgVbFjhFIVpifmMKnb_Tss/pub?gid=0&single=true&output=csv"; // Name (required) 
-const DOUBLE_COUNTS_AS = 2; // set to 1 if Double should not count extra
+const CSV_URL_PARTICIPANTS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTfQ7a2weK5Got7LTe3yVxqhcPR6pa-nPg73PdOMk8rrHwqlr3UeTcPprlgVbFjhFIVpifmMKnb_Tss/pub?gid=0&single=true&output=csv"; // Name (required) const DOUBLE_COUNTS_AS = 2; // set to 1 if Double should not count extra
 
 /* ================ HELPERS =================== */ const by = f => (a,b)=> f(a)<f(b)?-1:f(a)>f(b)?1:0; function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 function qidOrder(q){ if(!q) return 9999; const s=q[0], n=parseInt(q.slice(1),10); return (s==='A'?0:1)*1000 + (isFinite(n)?n:999); }
@@ -142,6 +156,8 @@ let qidToDate   = new Map();      // QID -> Date object (from DateTime)
 let results     = new Map();      // QID -> 'away' | 'home' | 'tie'
 let people      = [];             // [{name, picks:[{qid, choice, isDouble}], isDefaults?:true}]
 let participantNames = [];        // ["Name A", "Name B", ...]
+let defaultTemplate = null;       // { name:"Default Picks", picks:[...] }
+let standingsSort = 'alpha';      // 'alpha' | 'percent' | 'wins'
 
 /* ============== LOAD & PREP ============== */ function normalizeLines(rows){
   rows.forEach(r=>{
@@ -241,16 +257,14 @@ function outcomeFromWinner(qid){
     picks.push({ qid, choice: fav, isDouble: false });
     seen.add(qid);
   }
-  addFav('A1');
-  addFav('B1');
-
+  // A1 & B1
+  addFav('A1'); addFav('B1');
   // First 2 A games on Sunday (day 0)
   const aSunday = Array.from(qidToLine.keys())
     .filter(q=> q.startsWith('A') && qidToDate.get(q) && qidToDate.get(q).getDay()===0)
     .sort((a,b)=> (qidToDate.get(a)-qidToDate.get(b)) || qidOrder(a)-qidOrder(b))
     .slice(0,2);
   aSunday.forEach(addFav);
-
   // First 3 B games on Saturday (day 6)
   const bSaturday = Array.from(qidToLine.keys())
     .filter(q=> q.startsWith('B') && qidToDate.get(q) && qidToDate.get(q).getDay()===6)
@@ -282,21 +296,23 @@ async function loadAll(){
     people = normalizeSubs(subs);                 // actual pick submitters
     participantNames = normalizeParticipants(parts); // full roster
 
-    // for any participant with no picks, assign defaults
+    // Build the default template (rendered as its own first card)
+    defaultTemplate = { name:"Default Picks", picks: computeDefaultPicksSet(), isDefaults:true };
+
+    // For any participant with no picks, assign defaults to them (and label)
     const have = new Set(people.map(p=>p.name.toLowerCase()));
-    const defaultSet = computeDefaultPicksSet();
     participantNames.forEach(nm=>{
       if(!have.has(nm.toLowerCase())){
-        people.push({ name:nm, picks:[...defaultSet], isDefaults:true });
+        people.push({ name:nm, picks:[...defaultTemplate.picks], isDefaults:true });
       }
     });
 
-    // final sort: keep alphabetical except we already appended missing with defaults;
-    // enforce alphabetical overall for consistency
+    // Sort participants alphabetically (the default template card renders separately first)
     people.sort((a,b)=> a.name.localeCompare(b.name, undefined, {sensitivity:'base'}));
 
     renderGames();
-    renderPeople();
+    renderPeople(); // also renders standings with current sort
+    hookSortButtons();
   }catch(e){
     console.error(e);
     showErr('Failed to load CSV: ' + (e && e.message ? e.message : e));
@@ -308,6 +324,7 @@ async function loadAll(){
   const homeNorm = normTeam(qidToHome.get(qid) || "");
   let away = 0, home = 0;
 
+  // Count across actual people only (not the default template card)
   people.forEach(p=>{
     p.picks.forEach(pk=>{
       if(pk.qid !== qid) return;
@@ -382,7 +399,7 @@ async function loadAll(){
     row.querySelectorAll('.gbtn').forEach(b=> b.classList.remove('active'));
     if(results.has(qid)) row.querySelector(`.gbtn.${results.get(qid)}`)?.classList.add('active');
 
-    renderPeople(); // re-score
+    renderPeople(); // re-score (standings re-render with preserved sort)
   };
 }
 
@@ -409,10 +426,70 @@ async function loadAll(){
 
 /* ============== RENDER: PEOPLE TABLES + FULL STANDINGS ============== */ function renderPeople(){
   const list = document.getElementById('list');
-  const st = document.getElementById('standings');
+  const stWrap = document.getElementById('standingsWrap');
   list.innerHTML = '';
   let summaries = [];
 
+  /* --- First card: Default Picks template --- */
+  if (defaultTemplate && defaultTemplate.picks && defaultTemplate.picks.length){
+    const rows = defaultTemplate.picks.map((pk, idx)=>{
+      const s = scorePick(pk.qid, pk.choice, pk.isDouble);
+      return `
+        <tr>
+          <td class="col-idx">${idx+1}</td>
+          <td class="col-line">${escapeHtml(qidToLine.get(pk.qid) || pk.qid)}</td>
+          <td>${escapeHtml(pk.choice)}${pk.isDouble?'<span class="double"></span>':''}</td>
+          <td>${s.w? s.w : ''}</td>
+          <td>${s.l? s.l : ''}</td>
+          <td>${s.t? s.t : ''}</td>
+        </tr>
+      `;
+    }).join('');
+
+    // compute totals for display
+    let tw=0, tl=0, tt=0;
+    defaultTemplate.picks.forEach(pk=>{
+      const s = scorePick(pk.qid, pk.choice, pk.isDouble);
+      tw+=s.w; tl+=s.l; tt+=s.t;
+    });
+    const denom = tw+tl+tt;
+    const pct = denom>0 ? (tw + 0.5*tt)/denom : NaN;
+
+    const card = document.createElement('div');
+    card.className = 'person';
+    card.innerHTML = `
+      <div class="header">
+        <div class="pname">${escapeHtml(defaultTemplate.name)}</div>
+        <span class="badge-defaults">Defaults</span>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th class="col-idx">#</th>
+            <th>Line</th>
+            <th>Pick</th>
+            <th>Win</th>
+            <th>Loss</th>
+            <th>Tie</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+        <tfoot>
+          <tr>
+            <td></td>
+            <td>Total</td>
+            <td class="mono">${fmtPct(pct)}</td>
+            <td class="mono">${tw}</td>
+            <td class="mono">${tl}</td>
+            <td class="mono">${tt}</td>
+          </tr>
+        </tfoot>
+      </table>
+    `;
+    list.appendChild(card);
+  }
+
+  /* --- Participant cards --- */
   people.forEach(p=>{
     let rowsHtml = '';
     let tw=0, tl=0, tt=0;
@@ -436,7 +513,7 @@ async function loadAll(){
     const denom = tw + tl + tt;
     const pct = denom > 0 ? (tw + 0.5*tt) / denom : NaN;
 
-    summaries.push({ name:p.name, w:tw, l:tl, t:tt, pct, denom });
+    summaries.push({ name:p.name, w:tw, l:tl, t:tt, pct, denom, isDefaults: !!p.isDefaults });
 
     const table = `
       <div class="header">
@@ -474,26 +551,45 @@ async function loadAll(){
     list.appendChild(card);
   });
 
-  renderStandings(summaries);
-}
+  renderStandings(summaries); // honors current standingsSort
+  stWrap.hidden = summaries.length === 0; }
 
-function renderStandings(summaries){
+/* ============== STANDINGS (with sorting) ============== */ function renderStandings(summaries){
   const st = document.getElementById('standings');
+
   const valid = summaries.filter(s => s.denom > 0);
-  if(valid.length === 0){ st.hidden = true; st.innerHTML = ""; return; }
-  st.hidden = false;
+  if(valid.length === 0){ st.innerHTML = ""; return; }
 
   const rows = [...valid].sort((a,b)=>{
-    const ap = isNaN(a.pct)? -1 : a.pct, bp = isNaN(b.pct)? -1 : b.pct;
-    if(bp !== ap) return bp - ap;
-    if(b.w !== a.w) return b.w - a.w;
-    return a.name.localeCompare(b.name);
+    if (standingsSort === 'percent'){
+      const ap = isNaN(a.pct)? -1 : a.pct, bp = isNaN(b.pct)? -1 : b.pct;
+      if(bp !== ap) return bp - ap;
+      if(b.w !== a.w) return b.w - a.w;
+      return a.name.localeCompare(b.name);
+    } else if (standingsSort === 'wins'){
+      if(b.w !== a.w) return b.w - a.w;
+      const ap = isNaN(a.pct)? -1 : a.pct, bp = isNaN(b.pct)? -1 : b.pct;
+      if(bp !== ap) return bp - ap;
+      return a.name.localeCompare(b.name);
+    } else { // 'alpha'
+      return a.name.localeCompare(b.name);
+    }
   });
+
+  // toolbar active state
+  document.getElementById('sort-alpha').classList.toggle('active', standingsSort==='alpha');
+  document.getElementById('sort-percent').classList.toggle('active', standingsSort==='percent');
+  document.getElementById('sort-wins').classList.toggle('active', standingsSort==='wins');
 
   const tbody = rows.map((s, i)=>`
     <tr>
       <td class="rank">${i+1}.</td>
-      <td>${escapeHtml(s.name)}</td>
+      <td>
+        <span class="nameCell">
+          ${escapeHtml(s.name)}
+          ${s.isDefaults ? '<span class="badge-defaults" title="No submission — defaults applied">Defaults</span>' : ''}
+        </span>
+      </td>
       <td class="stat mono">${fmtPct(s.pct)}</td>
       <td class="stat mono">${s.w}-${s.l}-${s.t}</td>
       <td class="stat mono">${s.denom}</td>
@@ -501,7 +597,6 @@ function renderStandings(summaries){
   `).join("");
 
   st.innerHTML = `
-    <h2>Standings</h2>
     <table>
       <thead>
         <tr>
@@ -517,6 +612,12 @@ function renderStandings(summaries){
   `;
 }
 
+function hookSortButtons(){
+  document.getElementById('sort-alpha').onclick   = ()=>{ standingsSort='alpha';   renderPeople(); };
+  document.getElementById('sort-percent').onclick = ()=>{ standingsSort='percent'; renderPeople(); };
+  document.getElementById('sort-wins').onclick    = ()=>{ standingsSort='wins';    renderPeople(); };
+}
+
 /* ============== GO ============== */
 loadAll();
 // Optional: auto-refresh every 60s
@@ -524,5 +625,4 @@ loadAll();
 </script>
 </body>
 </html>
-
 
