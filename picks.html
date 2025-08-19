@@ -101,7 +101,8 @@ Caution: This email originated from outside of the organization. Do not click li
 /* Publish each tab as CSV (File → Share → Publish to web → select tab → CSV) and paste URLs here */
 const CSV_URL_LINES        = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTUQWcddGBeI13Qox_fKf1g9dejkd-VyZqimSwHaXPH4nO4AGE9oJo9-FzNacU4X1-xNvFvm0HOFHre/pub?gid=1347498364&single=true&output=csv";        // QID,Line,Away,Home,Winner,DateTime
 const CSV_URL_SUBS         = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRys9xayYsuEqgGB09v1nOrwdD0U5c1Hb1ksLqQxTSBzLi3AKGeg9yPt1-eY1fry_0H-KcZLCQ1h8H6/pub?gid=0&single=true&output=csv";  // Timestamp,Week,Name,Email,QID,Choice,IsDouble
-const CSV_URL_PARTICIPANTS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTfQ7a2weK5Got7LTe3yVxqhcPR6pa-nPg73PdOMk8rrHwqlr3UeTcPprlgVbFjhFIVpifmMKnb_Tss/pub?gid=0&single=true&output=csv"; // Name (required) const DOUBLE_COUNTS_AS = 2; // set to 1 if Double should not count extra
+const CSV_URL_PARTICIPANTS = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTfQ7a2weK5Got7LTe3yVxqhcPR6pa-nPg73PdOMk8rrHwqlr3UeTcPprlgVbFjhFIVpifmMKnb_Tss/pub?gid=0&single=true&output=csv"; // Name 
+const DOUBLE_COUNTS_AS = 2; // set to 1 if Double should not count extra
 
 /* ================ HELPERS =================== */ const by = f => (a,b)=> f(a)<f(b)?-1:f(a)>f(b)?1:0; function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 function qidOrder(q){ if(!q) return 9999; const s=q[0], n=parseInt(q.slice(1),10); return (s==='A'?0:1)*1000 + (isFinite(n)?n:999); }
